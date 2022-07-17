@@ -185,6 +185,31 @@ Monty Files:
 -   The rotr opcode
 -   The opcode rotr rotates the stack to the bottom.
 
+### Associated Files
+-   Doubly-functions |  [doubly_functions](doubly_functions.c)
+
+-  Get-opcodes.c     |  [get_opcodes.c](get_opcodes.c)
+
+-  Main.c            |  [main.c](main.c)
+
+-  Mallocfunctions.c |  [malloc_functions.c](malloc_functions.c)
+
+-  Monty function.c  |  [monty_func.c](monty_func.c)
+
+-  Monty math.c      |  [monty_math.c](monty_math.c)
+
+-  Monty.c           |  [monty.c](monty.c)
+
+-  Monty.h           |  [monty.h](monty.h)
+
+-  Stack funct.c     |  [stack_func.c](stack_func.c)
+
+-  Stack funct2.c    |  [stack_func2.c](stack_func2.c)
+
+-  Stack funct3.c    |  [stack_func3.c](stack_func3.c)
+-  str_functions.c   |  [str_functions.c](str_functions.c)
+-  README FILE       |  [README.md](README.md)
+
 ## Autors
 
 * **Dovine Owuor** - [Dovineowuor](https://github.com/Dovineowuor)
