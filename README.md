@@ -192,7 +192,7 @@ Monty Files:
 
 -  Main.c            |  [main.c](main.c)
 
--  Mallocfunctions.c |  [malloc_functions.c](malloc_functions.c)
+-  Malloc functions.c |  [malloc_functions.c](malloc_functions.c)
 
 -  Monty function.c  |  [monty_func.c](monty_func.c)
 
