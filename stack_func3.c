@@ -1,79 +1,149 @@
 #include "monty.h"
 
 /**
- * _pstr - mod top of stack y second top stack
- * @stack: pointer to lists for monty stack
- * @line_number: number of line opcode occurs on
+ * _div - divides the second element by the top element of the stack
+ *
+ * @doubly: head of the linked list
+ * @cline: line number;
+ * Return: no return
  */
-void _pstr(stack_t **stack, unsigned int line_number)
+void _div(stack_t **doubly, unsigned int cline)
 {
-	stack_t *tmp = *stack;
-	int c = 0;
+	int m = 0;
+	stack_t *aux = NULL;
 
-	(void)line_number;
+	aux = *doubly;
 
+	for (; aux != NULL; aux = aux->next, m++)
+		;
 
-	while (tmp)
+	if (m < 2)
 	{
-		c = tmp->n;
-		if (c == 0 || _isalpha(c) == 0)
-			break;
-		putchar(c);
-		tmp = tmp->next;
+		dprintf(2, "L%u: can't div, stack too short\n", cline);
+		free_vglo();
+		exit(EXIT_FAILURE);
 	}
-	putchar('\n');
+
+	if ((*doubly)->n == 0)
+	{
+		dprintf(2, "L%u: division by zero\n", cline);
+		free_vglo();
+		exit(EXIT_FAILURE);
+	}
+
+	aux = (*doubly)->next;
+	aux->n /= (*doubly)->n;
+	_pop(doubly, cline);
 }
 
 /**
- * _rotl - mod top of stack y second top stack
- * @stack: pointer to lists for monty stack
- * @line_number: number of line opcode occurs on
+ * _mul - multiplies the top element to the second top element of the stack
+ *
+ * @doubly: head of the linked list
+ * @cline: line number;
+ * Return: no return
  */
-void _rotl(stack_t **stack, unsigned int line_number)
+void _mul(stack_t **doubly, unsigned int cline)
 {
-	stack_t *runner = *stack;
+	int m = 0;
+	stack_t *aux = NULL;
 
+	aux = *doubly;
 
-	int aux1 = 0;
+	for (; aux != NULL; aux = aux->next, m++)
+		;
 
-	if (!line_number || !stack || !*stack || !(*stack)->next)
-		return;
-
-	aux1 = runner->n;
-
-	while (runner->next)
+	if (m < 2)
 	{
-		runner = runner->next;
-		runner->prev->n = runner->n;
+		dprintf(2, "L%u: can't mul, stack too short\n", cline);
+		free_vglo();
+		exit(EXIT_FAILURE);
 	}
 
-	runner->n = aux1;
+	aux = (*doubly)->next;
+	aux->n *= (*doubly)->n;
+	_pop(doubly, cline);
 }
 
 /**
- * _rotr - mod top of stack y second top stacks
- * @stack: pointer to lists for monty stack
- * @line_number: number of line opcode occurs on
+ * _mod - computes the rest of the division of the second element
+ * by the top element of the stack
+ *
+ * @doubly: head of the linked list
+ * @cline: line number;
+ * Return: no return
  */
-void _rotr(stack_t **stack, unsigned int line_number)
+void _mod(stack_t **doubly, unsigned int cline)
 {
-	stack_t *runner = *stack;
+	int m = 0;
+	stack_t *aux = NULL;
 
-	int aux1 = 0;
+	aux = *doubly;
 
-	if (!line_number || !stack || !*stack || !(*stack)->next)
-		return;
+	for (; aux != NULL; aux = aux->next, m++)
+		;
 
-	while (runner->next)
-		runner = runner->next;
-
-	aux1 = runner->n;
-
-	while (runner->prev)
+	if (m < 2)
 	{
-		runner = runner->prev;
-		runner->next->n = runner->n;
+		dprintf(2, "L%u: can't mod, stack too short\n", cline);
+		free_vglo();
+		exit(EXIT_FAILURE);
 	}
 
-	runner->n = aux1;
+	if ((*doubly)->n == 0)
+	{
+		dprintf(2, "L%u: division by zero\n", cline);
+		free_vglo();
+		exit(EXIT_FAILURE);
+	}
+
+	aux = (*doubly)->next;
+	aux->n %= (*doubly)->n;
+	_pop(doubly, cline);
+}
+/**
+ * _pchar - print the char value of the first element
+ *
+ * @doubly: head of the linked list
+ * @cline: line number;
+ * Return: no return
+ */
+void _pchar(stack_t **doubly, unsigned int cline)
+{
+	if (doubly == NULL || *doubly == NULL)
+	{
+		dprintf(2, "L%u: can't pchar, stack empty\n", cline);
+		free_vglo();
+		exit(EXIT_FAILURE);
+	}
+	if ((*doubly)->n < 0 || (*doubly)->n >= 128)
+	{
+		dprintf(2, "L%u: can't pchar, value out of range\n", cline);
+		free_vglo();
+		exit(EXIT_FAILURE);
+	}
+	printf("%c\n", (*doubly)->n);
+}
+
+/**
+ * _pstr - prints the string of the stack
+ *
+ * @doubly: head of the linked list
+ * @cline: line number;
+ * Return: no return
+ */
+void _pstr(stack_t **doubly, unsigned int cline)
+{
+	stack_t *aux;
+	(void)cline;
+
+	aux = *doubly;
+
+	while (aux && aux->n > 0 && aux->n < 128)
+	{
+		printf("%c", aux->n);
+		aux = aux->next;
+	}
+
+	printf("\n");
 }
